@@ -1,18 +1,35 @@
-node ('ubuntu-app-agent'){  
-    def app
-    stage('Cloning Git') {
+pipeline {
+  agent any 
+  
+      stages {
+	  
+	  stage('Cloning Git') {
+	  steps{
         /* Let's make sure we have the repository cloned to our workspace */
        checkout scm
-    }  
-     
-    /*stage('SAST'){
-        build 'SECURITY-SAST-SNYK'
-    }*/
+	   }
+    } 
+      stage ('Check-Git-Secrets') {
+   steps {
+    sh 'rm trufflehog || true'
+    sh 'docker run gesellix/trufflehog --json https://github.com/sindhuhack/Devsecops.git > trufflehog'
+    sh 'cat trufflehog'
+    }
+}
+      stage ('Source Composition Analysis') {
+      steps {
+         sh 'rm owasp* || true'
+         sh 'wget "https://raw.githubusercontent.com/sindhuhack/Devsecops/master/owasp-dependency-check.sh" '
+         sh 'chmod +x owasp-dependency-check.sh'
+         sh 'bash owasp-dependency-check.sh'
+         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
+        
+      }
+    }
       
+
     stage('Build-and-Tag') {
-       // sh 'echo Build-and-Tag'
-    /* This builds the actual image; synonymous to
-         * docker build on the command line */
+
        app = docker.build("sindhuhack/snake")
     }
     stage('Post-to-dockerhub') {
@@ -22,9 +39,7 @@ node ('ubuntu-app-agent'){
             app.push("latest")
         			} 
          }
-    /*stage('SECURITY-IMAGE-SCANNER'){
-       build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
-    }*/
+    
   
     
     stage('Pull-image-server') {
@@ -33,11 +48,6 @@ node ('ubuntu-app-agent'){
          sh "docker-compose down"
          sh "docker-compose up -d" 	
       }
-    
-    /*stage('DAST')
-        {
-        build 'SECURITY-DAST-OWASP_ZAP'
-        }*/
- 
-}
 
+   }
+}
