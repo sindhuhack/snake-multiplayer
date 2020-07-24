@@ -9,12 +9,6 @@ node ('ubuntu-app-agent'){
         build 'SECURITY-SAST-SNYK'
     }*/
    
-    stage ('Check-Git-Secrets') {
-            
-    sh 'rm trufflehog || true' 
-    sh 'docker run gesellix/trufflehog --json https://github.com/sindhuhack/snake-multiplayer.git > trufflehog'
-    sh 'cat trufflehog'
-    }
     
     stage('Build-and-Tag') {
        // sh 'echo Build-and-Tag'
