@@ -8,8 +8,7 @@ node ('ubuntu-app-agent'){
     /*stage('SAST'){
         build 'SECURITY-SAST-SNYK'
     }*/
-   
-    
+      
     stage('Build-and-Tag') {
        // sh 'echo Build-and-Tag'
     /* This builds the actual image; synonymous to
