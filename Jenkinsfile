@@ -29,25 +29,33 @@ pipeline {
       
 
     stage('Build-and-Tag') {
+	    steps{
 
        app = docker.build("sindhuhack/snake")
     }
+    }
     stage('Post-to-dockerhub') {
+	    steps{
+	    
         sh 'echo Post-to-dockerhub'
     
      docker.withRegistry('https://registry.hub.docker.com', 'docker_cred') {
             app.push("latest")
         			} 
          }
+    }
     
   
     
     stage('Pull-image-server') {
+	    steps{
+		    
         sh 'echo Pull-image-server'
     
          sh "docker-compose down"
          sh "docker-compose up -d" 	
       }
+    }
 
    }
 }
