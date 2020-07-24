@@ -1,23 +1,19 @@
 node ('ubuntu-app-agent'){  
     def app
-    stages{
-        steps{
     stage('Cloning Git') {
         /* Let's make sure we have the repository cloned to our workspace */
        checkout scm
     }  
-        }
+     
     /*stage('SAST'){
         build 'SECURITY-SAST-SNYK'
     }*/
    
     stage ('Check-Git-Secrets') {
-        steps{
             
     sh 'rm trufflehog || true' 
     sh 'docker run gesellix/trufflehog --json https://github.com/sindhuhack/snake-multiplayer.git > trufflehog'
     sh 'cat trufflehog'
-    }
     }
     
     stage('Build-and-Tag') {
@@ -51,4 +47,4 @@ node ('ubuntu-app-agent'){
         }*/
  
 }
-}
+
