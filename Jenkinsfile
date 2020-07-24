@@ -7,7 +7,7 @@ node ('ubuntu-app-agent'){
     /*stage('SAST'){
         build 'SECURITY-SAST-SNYK'
     }*/
-    
+    stages{
     stage ('Check-Git-Secrets') {
    steps {
     sh 'rm trufflehog || true'
@@ -15,6 +15,7 @@ node ('ubuntu-app-agent'){
     sh 'cat trufflehog'
     }
 }
+    }
     
     stage('Build-and-Tag') {
        // sh 'echo Build-and-Tag'
