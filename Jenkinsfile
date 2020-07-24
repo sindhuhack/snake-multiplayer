@@ -29,19 +29,18 @@ pipeline {
       
 
     stage('Build-and-Tag') {
-	    steps{
+    steps{
 
        app = docker.build("sindhuhack/snake")
     }
     }
     stage('Post-to-dockerhub') {
-	    steps{
-	    
+    steps{    
         sh 'echo Post-to-dockerhub'
     
-     docker.withRegistry('https://registry.hub.docker.com', 'docker_cred') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker_cred') {
             app.push("latest")
-        			} 
+	}
          }
     }
     
