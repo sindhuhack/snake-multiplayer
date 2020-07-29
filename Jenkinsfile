@@ -4,9 +4,13 @@ node ('ubuntu-app-agent'){
         /* Let's make sure we have the repository cloned to our workspace */
        checkout scm
     }  
-    /*stage('SAST'){
+    stage('Secret-Management'){
         build 'SECURITY-SAST-SNYK'
-    }*/
+    }
+    
+     stage('SAST'){
+        build 'Sonar-Qube'
+    }
 
     
     stage('Build-and-Tag') {
@@ -22,9 +26,9 @@ node ('ubuntu-app-agent'){
             app.push("latest")
         			} 
          }
-    /*stage('SECURITY-IMAGE-SCANNER'){
-       build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
-    }*/
+    stage('SECURITY-IMAGE-SCANNER'){
+       build 'SECURITY-IMAGE-SCANNER-ANCHORE'
+    }
   
     
     stage('Pull-image-server') {
@@ -34,9 +38,9 @@ node ('ubuntu-app-agent'){
          sh "docker-compose up -d" 	
       }
     
-    /*stage('DAST')
+    stage('DAST')
         {
         build 'SECURITY-DAST-OWASP_ZAP'
-        }*/
+        }
  
 }
