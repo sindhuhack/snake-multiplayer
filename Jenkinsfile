@@ -11,9 +11,9 @@ node ('ubuntu-app-agent'){
         build 'trufflehog'
     }
     
-    stage('Secret-Management-OWASP-depncy-check'){
-        build 'owasp-dependency-check'
-    }
+    //stage('Secret-Management-OWASP-depncy-check'){
+       // build 'owasp-dependency-check'
+    //}
     
     
      stage('SAST'){
