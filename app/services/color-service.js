@@ -3,6 +3,9 @@
 /**
  *  Generates new unused colors and stores used colors
  */
+
+# username=sindhu
+#password=sindhu
 class ColorService {
 
     constructor() {
