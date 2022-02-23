@@ -5,18 +5,18 @@ node ('Appserver-agent'){
     }  
     
         stage('Build and Tag') {
-        sh 'echo Clone the code'
+        sh 'echo Build the code'
     } 
-        stage('Cloning Git') {
-        sh 'echo Clone the code'
-    } 
-    
         stage('Push to Dockerhub') {
-        sh 'echo Clone the code'
+        sh 'echo Push the image to Dockerhub'
     } 
     
-        stage('pull from dockerhub') {
-        sh 'echo Clone the code'
+        stage('Pull from Dockerhub') {
+        sh 'echo Pull the image from Dockerhub and run it'
+    } 
+    
+        stage('Done') {
+        sh 'All stages are completed'
     } 
 
 }
