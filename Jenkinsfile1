@@ -1,0 +1,16 @@
+node ('Appserver-agent'){  
+    def app
+    stage('Cloning Git') {
+        sh 'echo Clone the code'
+    }  
+    
+	stage(Build-and-Tag){
+	     sh 'echo build and Tag'
+		 }
+	stage(Push-to-dockerhub){
+	     sh 'echo push the image to docker hub'
+		 }
+	stage(Pull-the-image){
+	     sh 'echo pull the image from dockerhub and run it'
+		 }
+}
