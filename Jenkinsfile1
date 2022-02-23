@@ -14,9 +14,4 @@ node ('Appserver-agent'){
         stage('Pull from Dockerhub') {
         sh 'echo Pull the image from Dockerhub and run it'
     } 
-    
-        stage('Done') {
-        sh 'All stages are completed'
-    } 
-
 }
